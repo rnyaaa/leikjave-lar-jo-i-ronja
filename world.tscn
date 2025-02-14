@@ -1,0 +1,19 @@
+[gd_scene load_steps=4 format=3 uid="uid://ca2ms8ky8dqhu"]
+
+[ext_resource type="PackedScene" uid="uid://bj7ueemjbig30" path="res://rat.fbx" id="1_3xvup"]
+[ext_resource type="Script" path="res://player_movement.gd" id="2_6ybxi"]
+[ext_resource type="PackedScene" uid="uid://bhg2swtqeam65" path="res://untitled.fbx" id="3_psklu"]
+
+[node name="Node3D" type="Node3D"]
+
+[node name="rat" parent="." instance=ExtResource("1_3xvup")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 0, 0)
+script = ExtResource("2_6ybxi")
+
+[node name="Camera3D" type="Camera3D" parent="rat"]
+transform = Transform3D(-1, -2.99004e-08, 8.21505e-08, 0, 0.939693, 0.34202, -8.74228e-08, 0.34202, -0.939693, 0, 4, -4)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+
+[node name="untitled" parent="." instance=ExtResource("3_psklu")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.24286, 0, 7.33781)
