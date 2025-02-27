@@ -5,7 +5,7 @@
 [ext_resource type="Shader" path="res://terrain.gdshader" id="4_n54di"]
 [ext_resource type="Script" path="res://terrain.gd" id="4_ph8j7"]
 [ext_resource type="Script" path="res://character_body_3d.gd" id="4_rso2h"]
-[ext_resource type="PackedScene" uid="uid://dc0vjm02jj4sg" path="res://blender_meshes/tree1.blend" id="6_rqkp1"]
+[ext_resource type="PackedScene" uid="uid://bmj43mqkmblhj" path="res://blender_meshes/tree1.fbx" id="6_rqkp1"]
 
 [sub_resource type="Gradient" id="Gradient_4giib"]
 colors = PackedColorArray(0.235779, 0.31196, 0.357434, 1, 1, 1, 1, 1)
