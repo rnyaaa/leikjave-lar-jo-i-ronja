@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://ccxav1iaokqxw"]
+
+[ext_resource type="Script" path="res://boid_manager.gd" id="1_fwc6n"]
+
+[node name="BoidManager" type="Node3D"]
+script = ExtResource("1_fwc6n")

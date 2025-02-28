@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://bk0hw17266cv1"]
+
+[ext_resource type="PackedScene" uid="uid://bj7ueemjbig30" path="res://rat.fbx" id="1_2fthe"]
+[ext_resource type="Script" path="res://boid.gd" id="1_tvou5"]
+
+[node name="Boid" type="Node3D"]
+script = ExtResource("1_tvou5")
+
+[node name="rat" parent="." instance=ExtResource("1_2fthe")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)

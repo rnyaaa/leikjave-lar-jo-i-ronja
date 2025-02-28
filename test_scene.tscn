@@ -1,0 +1,130 @@
+[gd_scene load_steps=19 format=3 uid="uid://l5ce2n65wxcn"]
+
+[ext_resource type="Shader" path="res://terrain.gdshader" id="1_l0ey3"]
+[ext_resource type="PackedScene" uid="uid://ccxav1iaokqxw" path="res://boid_manager.tscn" id="3_aujyh"]
+[ext_resource type="PackedScene" uid="uid://bj7ueemjbig30" path="res://rat.fbx" id="4_avv42"]
+[ext_resource type="Texture2D" uid="uid://cgg7tksswv6t4" path="res://textures/Ground068_2K-PNG_NormalDX.png" id="4_vf2y4"]
+[ext_resource type="Texture2D" uid="uid://dxa7drla1dfjc" path="res://textures/Ground068_2K-PNG_AmbientOcclusion.png" id="4_y5g3e"]
+[ext_resource type="Script" path="res://character_body_3d.gd" id="5_gghxd"]
+[ext_resource type="Texture2D" uid="uid://dg7xv403gga5r" path="res://textures/Ground068_2K-PNG_Displacement.png" id="5_q3ji0"]
+[ext_resource type="Texture2D" uid="uid://tuvuukd524ko" path="res://textures/Ground068_2K-PNG_Color.png" id="6_d8472"]
+
+[sub_resource type="Gradient" id="Gradient_ku5to"]
+offsets = PackedFloat32Array(0.0509554, 0.159236, 0.251592, 0.33121, 0.579618, 0.691083, 0.83121, 0.936306)
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 1, 0.615686, 0.615686, 0.615686, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 0, 1, 1, 1, 1)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_hxepw"]
+noise_type = 2
+frequency = 0.0058
+cellular_jitter = 3.26
+domain_warp_enabled = true
+domain_warp_amplitude = 100.0
+domain_warp_frequency = -0.02
+domain_warp_fractal_octaves = 4
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_pge42"]
+width = 2048
+height = 2048
+in_3d_space = true
+seamless = true
+seamless_blend_skirt = 1.0
+color_ramp = SubResource("Gradient_ku5to")
+noise = SubResource("FastNoiseLite_hxepw")
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_0e15u"]
+sky_top_color = Color(0.290196, 0.368627, 0.470588, 1)
+sky_curve = 0.300001
+sky_cover = SubResource("NoiseTexture2D_pge42")
+ground_curve = 0.16
+sun_angle_max = 23.24
+
+[sub_resource type="Sky" id="Sky_yqdqh"]
+sky_material = SubResource("ProceduralSkyMaterial_0e15u")
+
+[sub_resource type="Environment" id="Environment_br4ie"]
+background_mode = 2
+sky = SubResource("Sky_yqdqh")
+glow_enabled = true
+glow_normalized = true
+glow_intensity = 0.3
+glow_strength = 0.4
+glow_mix = 0.0
+glow_bloom = 0.3
+glow_blend_mode = 0
+fog_enabled = true
+fog_mode = 1
+fog_light_color = Color(0.705887, 0.705887, 0.705887, 1)
+fog_density = 1.0
+fog_height = 1024.0
+fog_height_density = -16.0
+fog_depth_curve = 1.6245
+fog_depth_begin = 100.0
+fog_depth_end = 512.0
+volumetric_fog_enabled = true
+volumetric_fog_density = 0.032
+volumetric_fog_emission = Color(0.263025, 0.308686, 0.287924, 1)
+volumetric_fog_emission_energy = 0.6
+volumetric_fog_gi_inject = 1.99
+volumetric_fog_anisotropy = 0.3
+volumetric_fog_length = 29.0
+volumetric_fog_detail_spread = 0.757858
+volumetric_fog_ambient_inject = 1.5
+adjustment_enabled = true
+adjustment_brightness = 0.9
+adjustment_contrast = 1.6
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_qjdn3"]
+frequency = 0.005
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_tumi7"]
+width = 1024
+height = 1024
+seamless = true
+seamless_blend_skirt = 0.59
+noise = SubResource("FastNoiseLite_qjdn3")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ty4m5"]
+render_priority = 0
+shader = ExtResource("1_l0ey3")
+shader_parameter/displacement_scale = 0.04
+shader_parameter/ao_strength = 3.5
+shader_parameter/height_scale = 7.5
+shader_parameter/normal_map = ExtResource("4_vf2y4")
+shader_parameter/roughness_map = ExtResource("5_q3ji0")
+shader_parameter/tex = ExtResource("6_d8472")
+shader_parameter/noise = SubResource("NoiseTexture2D_tumi7")
+shader_parameter/ao_map = ExtResource("4_y5g3e")
+shader_parameter/displacement = ExtResource("5_q3ji0")
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_5vxyy"]
+material = SubResource("ShaderMaterial_ty4m5")
+size = Vector2(1024, 1024)
+subdivide_width = 2048
+subdivide_depth = 2048
+
+[node name="test_scene" type="Node3D"]
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.61084, 0.533954, -0.584609, -0.114338, 0.790122, 0.602191, 0.783455, -0.301, 0.543689, 0, 317.737, 0)
+light_color = Color(0.894118, 0.94902, 0.819608, 1)
+shadow_bias = 0.0
+shadow_normal_bias = 4.56
+
+[node name="BoidManager" parent="." instance=ExtResource("3_aujyh")]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_br4ie")
+
+[node name="terrain" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.67221, 1.95358, -1.67668)
+mesh = SubResource("PlaneMesh_5vxyy")
+
+[node name="Player" type="CharacterBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 22.9037, 0)
+script = ExtResource("5_gghxd")
+
+[node name="rat" parent="Player" instance=ExtResource("4_avv42")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
+
+[node name="Camera3D" type="Camera3D" parent="Player"]
+transform = Transform3D(1, 0, 0, 0, 0.92388, 0.382683, 0, -0.382683, 0.92388, 0, 5, 5)
