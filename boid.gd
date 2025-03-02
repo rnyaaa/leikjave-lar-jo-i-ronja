@@ -13,7 +13,7 @@ var health: int = 100
 var nbors: Array = [] 
 var to_player: Vector3 = Vector3.ZERO
 
-@onready var mesh: Node3D = $rat 
+@onready var mesh: Node3D = $rocket
 var previous_velocity: Vector3 = Vector3.ZERO
 var bank_amount: float = 0.2
 var bank_speed: float = 0.1

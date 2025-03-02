@@ -10,7 +10,8 @@ const VISUAL_RANGE:        float = 100.0
 const SPAWN_DISTANCE:      float = 50.0
 const MAX_VIEW_DISTANCE:   float = 100.0
 
-var num_boids: int = 200
+var boid_groups: int = 5
+var num_boids: int = 20
 
 var team_counts: Array = [0, 0, 0, 0, 0]
 var boids: Array = []
@@ -35,13 +36,14 @@ func _process(delta: float) -> void:
 			respawn(boid)
 
 func initialize_boids() -> void:
-	for i in num_boids:
-		var inst = boid.instantiate()
-		inst.index = i
-		inst.set_position(spawn_outside_view(true))
-		add_child(inst)
-		inst.nbors = []
-		boids.append(inst)
+	for i in boid_groups:
+		for j in num_boids:
+			var inst = boid.instantiate()
+			inst.index = i
+			inst.set_position(spawn_outside_view(true))
+			add_child(inst)
+			inst.nbors = []
+			boids.append(inst)
 
 func process_death_timers(delta: float) -> void:
 	var new_death_timers = []

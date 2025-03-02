@@ -15,9 +15,20 @@ var grounded = false
 var turn_input = 0
 var pitch_input = 0
 
+var player_size = 1.0
+
 @onready var mesh = $rat
 @onready var terrain = $"../terrain"
 
+func _ready():
+	update_size()
+	
+	
+
+func update_size():
+	# Scale the player based on the size
+	scale = Vector3(player_size, player_size, player_size)
+	
 func get_input(delta):
 	
 	terrain.position = Vector3(position.x, terrain.position.y, position.z)
@@ -60,3 +71,13 @@ func _physics_process(delta):
 	else:
 		grounded = false
 	move_and_slide()
+
+
+func _on_body_entered(body):
+	if body.is_in_group("pickup"):
+		# Increase player size
+		player_size += 0.1
+		update_size()
+		
+		# Remove the pickup object
+		body.queue_free()

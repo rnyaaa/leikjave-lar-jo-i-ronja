@@ -12,7 +12,6 @@
 [ext_resource type="PackedScene" uid="uid://bmj43mqkmblhj" path="res://blender_meshes/tree1.fbx" id="10_05184"]
 [ext_resource type="PackedScene" uid="uid://cawqqhn50p81m" path="res://blender_meshes/rocket.fbx" id="11_3lfu2"]
 [ext_resource type="PackedScene" uid="uid://c5wxpo26qay5" path="res://blender_meshes/cheese.fbx" id="12_62rmw"]
-[ext_resource type="Script" path="res://blender_meshes/cheese.gd" id="13_2gheg"]
 
 [sub_resource type="Gradient" id="Gradient_ku5to"]
 offsets = PackedFloat32Array(0.0509554, 0.159236, 0.251592, 0.33121, 0.579618, 0.691083, 0.83121, 0.936306)
@@ -132,6 +131,8 @@ uv1_world_triplanar = true
 material = SubResource("StandardMaterial3D_civwk")
 size = Vector3(1024, 10, 1024)
 
+[sub_resource type="BoxShape3D" id="BoxShape3D_v6dxc"]
+
 [node name="test_scene" type="Node3D"]
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
@@ -166,12 +167,6 @@ transform = Transform3D(1, 0, 0, 0, 0.92388, 0.382683, 0, -0.382683, 0.92388, 0,
 transform = Transform3D(3.67498, -0.0114179, -0.00111669, 0.00122403, 0.0345643, 3.67484, -0.0114068, -3.67482, 0.034568, 0, 1.06698, 0.120876)
 shape = SubResource("CapsuleShape3D_quvbp")
 
-[node name="Area3D" type="Area3D" parent="Player"]
-
-[node name="CollisionShape3D2" type="CollisionShape3D" parent="Player/Area3D" groups=["player"]]
-transform = Transform3D(3.67498, -0.0114179, -0.00111669, 0.00122403, 0.0345643, 3.67484, -0.0114068, -3.67482, 0.034568, 0, 1.06698, 0.120876)
-shape = SubResource("CapsuleShape3D_quvbp")
-
 [node name="water" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.420975, 0)
 mesh = SubResource("BoxMesh_4u4yi")
@@ -181,13 +176,10 @@ visible = false
 
 [node name="rocket" parent="." instance=ExtResource("11_3lfu2")]
 
-[node name="Area3D" type="Area3D" parent="rocket"]
+[node name="cheese" parent="." instance=ExtResource("12_62rmw")]
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="rocket/Area3D" groups=["player"]]
-transform = Transform3D(2.40499, -0.00747208, -0.000730785, 0.000801033, 0.0226196, 2.40489, -0.00746487, -2.40488, 0.022622, 0, 0.0206017, 0.120876)
-shape = SubResource("CapsuleShape3D_quvbp")
+[node name="CollisionShape3D" type="CollisionShape3D" parent="cheese"]
+transform = Transform3D(7.555, 0, 0, 0, 7.555, 0, 0, 0, 7.555, 0, 0, 0)
+shape = SubResource("BoxShape3D_v6dxc")
 
-[node name="cheese" parent="." groups=["pickup"] instance=ExtResource("12_62rmw")]
-script = ExtResource("13_2gheg")
-
-[connection signal="body_entered" from="Player/Area3D" to="Player" method="_on_body_entered"]
+[node name="Area3D" type="Area3D" parent="cheese"]

@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://b7uxfrrkk26u7"]
+
+[ext_resource type="PackedScene" uid="uid://c5wxpo26qay5" path="res://blender_meshes/cheese.fbx" id="1_0ux2c"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_r2hwl"]
+
+[node name="cheese" instance=ExtResource("1_0ux2c")]
+
+[node name="StaticBody3D" type="StaticBody3D" parent="." index="1"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D" index="0"]
+transform = Transform3D(-0.150839, -2.9962, -0.00393747, 2.9962, -0.150844, 0.0034628, -0.00365644, -0.00375834, 3, 0, 0, 0)
+shape = SubResource("CapsuleShape3D_r2hwl")
