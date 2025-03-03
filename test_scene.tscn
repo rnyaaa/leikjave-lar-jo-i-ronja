@@ -1,13 +1,29 @@
-[gd_scene load_steps=19 format=3 uid="uid://l5ce2n65wxcn"]
+[gd_scene load_steps=46 format=3 uid="uid://l5ce2n65wxcn"]
 
 [ext_resource type="Shader" path="res://terrain.gdshader" id="1_l0ey3"]
+[ext_resource type="Shader" path="res://water.gdshader" id="2_lhqdw"]
 [ext_resource type="PackedScene" uid="uid://ccxav1iaokqxw" path="res://boid_manager.tscn" id="3_aujyh"]
 [ext_resource type="PackedScene" uid="uid://bj7ueemjbig30" path="res://rat.fbx" id="4_avv42"]
-[ext_resource type="Texture2D" uid="uid://cgg7tksswv6t4" path="res://textures/Ground068_2K-PNG_NormalDX.png" id="4_vf2y4"]
-[ext_resource type="Texture2D" uid="uid://dxa7drla1dfjc" path="res://textures/Ground068_2K-PNG_AmbientOcclusion.png" id="4_y5g3e"]
+[ext_resource type="Texture2D" uid="uid://dxa7drla1dfjc" path="res://textures/ground/Ground068_2K-PNG_AmbientOcclusion.png" id="4_y5g3e"]
+[ext_resource type="Texture2D" uid="uid://ctog7k5t8cc1x" path="res://textures/ground/Ground068_2K-PNG_NormalGL.png" id="5_bt6dc"]
 [ext_resource type="Script" path="res://character_body_3d.gd" id="5_gghxd"]
-[ext_resource type="Texture2D" uid="uid://dg7xv403gga5r" path="res://textures/Ground068_2K-PNG_Displacement.png" id="5_q3ji0"]
-[ext_resource type="Texture2D" uid="uid://tuvuukd524ko" path="res://textures/Ground068_2K-PNG_Color.png" id="6_d8472"]
+[ext_resource type="Texture2D" uid="uid://dg7xv403gga5r" path="res://textures/ground/Ground068_2K-PNG_Displacement.png" id="5_q3ji0"]
+[ext_resource type="Texture2D" uid="uid://c680eaehfdkxn" path="res://textures/ground/Ground068_2K-PNG_Roughness.png" id="6_0lo4p"]
+[ext_resource type="Texture2D" uid="uid://tuvuukd524ko" path="res://textures/ground/Ground068_2K-PNG_Color.png" id="6_d8472"]
+[ext_resource type="Texture2D" uid="uid://ditvmsn2jqt5w" path="res://textures/mountain/Rock057_2K-PNG_Displacement.png" id="8_muqtk"]
+[ext_resource type="Texture2D" uid="uid://5t0pc1fqml76" path="res://textures/mountain/Rock057_2K-PNG_NormalGL.png" id="9_8pjqs"]
+[ext_resource type="Texture2D" uid="uid://b4v0dku8ffg53" path="res://textures/mountain/Rock057_2K-PNG_Roughness.png" id="10_1v1br"]
+[ext_resource type="Texture2D" uid="uid://n8vatxtghko1" path="res://textures/mountain/Rock057_2K-PNG_Color.png" id="11_x8qjq"]
+[ext_resource type="Texture2D" uid="uid://4qryqai4htey" path="res://textures/rock/Rock037_2K-PNG_AmbientOcclusion.png" id="12_80uuq"]
+[ext_resource type="Texture2D" uid="uid://gslhywym3hro" path="res://textures/sand/Ground052_2K-PNG_Displacement.png" id="13_omgso"]
+[ext_resource type="Texture2D" uid="uid://cfprbq33j6n2y" path="res://textures/rock/Rock037_2K-PNG_NormalGL.png" id="14_y4lm3"]
+[ext_resource type="Texture2D" uid="uid://oqc2sqpvwjlu" path="res://textures/rock/Rock037_2K-PNG_Roughness.png" id="15_hvybj"]
+[ext_resource type="Texture2D" uid="uid://ddbudl8lmbybg" path="res://textures/rock/Rock037_2K-PNG_Color.png" id="16_c8t3o"]
+[ext_resource type="Texture2D" uid="uid://blh16x20nfa1a" path="res://textures/sand/Ground052_2K-PNG_AmbientOcclusion.png" id="17_vrgub"]
+[ext_resource type="Texture2D" uid="uid://mctumde8mh1y" path="res://textures/sand/Ground052_2K-PNG_NormalGL.png" id="18_1bfjq"]
+[ext_resource type="Texture2D" uid="uid://dsn2tys5hp67u" path="res://textures/sand/Ground052_2K-PNG_Roughness.png" id="19_tbpbd"]
+[ext_resource type="Texture2D" uid="uid://jktiqmuensx4" path="res://textures/sand/Ground052_2K-PNG_Color.png" id="20_keams"]
+[ext_resource type="Script" path="res://spawner.gd" id="21_ovb86"]
 
 [sub_resource type="Gradient" id="Gradient_ku5to"]
 offsets = PackedFloat32Array(0.0509554, 0.159236, 0.251592, 0.33121, 0.579618, 0.691083, 0.83121, 0.936306)
@@ -73,6 +89,8 @@ adjustment_enabled = true
 adjustment_brightness = 0.9
 adjustment_contrast = 1.6
 
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_7515d"]
+
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_qjdn3"]
 frequency = 0.005
 
@@ -89,12 +107,27 @@ shader = ExtResource("1_l0ey3")
 shader_parameter/displacement_scale = 0.04
 shader_parameter/ao_strength = 3.5
 shader_parameter/height_scale = 7.5
-shader_parameter/normal_map = ExtResource("4_vf2y4")
-shader_parameter/roughness_map = ExtResource("5_q3ji0")
-shader_parameter/tex = ExtResource("6_d8472")
 shader_parameter/noise = SubResource("NoiseTexture2D_tumi7")
-shader_parameter/ao_map = ExtResource("4_y5g3e")
-shader_parameter/displacement = ExtResource("5_q3ji0")
+shader_parameter/ground_tex = ExtResource("6_d8472")
+shader_parameter/ground_normal_map = ExtResource("5_bt6dc")
+shader_parameter/ground_roughness_map = ExtResource("6_0lo4p")
+shader_parameter/ground_ao_map = ExtResource("4_y5g3e")
+shader_parameter/ground_displacement = ExtResource("5_q3ji0")
+shader_parameter/mountain_tex = ExtResource("11_x8qjq")
+shader_parameter/mountain_normal_map = ExtResource("9_8pjqs")
+shader_parameter/mountain_roughness_map = ExtResource("10_1v1br")
+shader_parameter/mountain_ao_map = SubResource("CompressedTexture2D_7515d")
+shader_parameter/mountain_displacement = ExtResource("8_muqtk")
+shader_parameter/rock_tex = ExtResource("16_c8t3o")
+shader_parameter/rock_normal_map = ExtResource("14_y4lm3")
+shader_parameter/rock_roughness_map = ExtResource("15_hvybj")
+shader_parameter/rock_ao_map = ExtResource("12_80uuq")
+shader_parameter/rock_displacement = ExtResource("13_omgso")
+shader_parameter/sand_tex = ExtResource("20_keams")
+shader_parameter/sand_normal_map = ExtResource("18_1bfjq")
+shader_parameter/sand_roughness_map = ExtResource("19_tbpbd")
+shader_parameter/sand_ao_map = ExtResource("17_vrgub")
+shader_parameter/sand_displacement = ExtResource("13_omgso")
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_5vxyy"]
 material = SubResource("ShaderMaterial_ty4m5")
@@ -102,22 +135,72 @@ size = Vector2(1024, 1024)
 subdivide_width = 2048
 subdivide_depth = 2048
 
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_4pbfq"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_8x8m5"]
+noise = SubResource("FastNoiseLite_4pbfq")
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_cgdxx"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_vkmia"]
+noise = SubResource("FastNoiseLite_cgdxx")
+
+[sub_resource type="Gradient" id="Gradient_pscvi"]
+offsets = PackedFloat32Array(0, 0.288136, 0.838983, 1)
+colors = PackedColorArray(0, 0.301961, 0.380392, 1, 0.193424, 0.49152, 0.462379, 1, 2.11775e-06, 0.794895, 0.991991, 1, 0.474934, 0.902048, 0.998871, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_maawt"]
+gradient = SubResource("Gradient_pscvi")
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_cp7tu"]
+frequency = 0.0301
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_y26xb"]
+as_normal_map = true
+noise = SubResource("FastNoiseLite_cp7tu")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_3vxkx"]
+render_priority = 0
+shader = ExtResource("2_lhqdw")
+shader_parameter/initspeed = 2.5
+shader_parameter/amplitude = 0.001
+shader_parameter/freq = 200.0
+shader_parameter/wavecount = 3
+shader_parameter/maxpeak = 2.0
+shader_parameter/drag = 0.0
+shader_parameter/dirnoise = SubResource("NoiseTexture2D_vkmia")
+shader_parameter/colornoise = SubResource("NoiseTexture2D_8x8m5")
+shader_parameter/gradient = SubResource("GradientTexture2D_maawt")
+shader_parameter/normal_texture = SubResource("NoiseTexture2D_y26xb")
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_yqx55"]
+material = SubResource("ShaderMaterial_3vxkx")
+size = Vector2(1024, 1024)
+subdivide_width = 2048
+subdivide_depth = 2048
+
 [node name="test_scene" type="Node3D"]
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
-transform = Transform3D(0.61084, 0.533954, -0.584609, -0.114338, 0.790122, 0.602191, 0.783455, -0.301, 0.543689, 0, 317.737, 0)
+transform = Transform3D(0.61084, 0.533954, -0.584609, -0.114338, 0.790122, 0.602192, 0.783455, -0.301, 0.543689, 0, 317.737, 0)
 light_color = Color(0.894118, 0.94902, 0.819608, 1)
 shadow_bias = 0.0
 shadow_normal_bias = 4.56
 
-[node name="BoidManager" parent="." instance=ExtResource("3_aujyh")]
-
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_br4ie")
 
+[node name="TreeManager" type="Node3D" parent="."]
+script = ExtResource("21_ovb86")
+
+[node name="BoidManager" parent="." instance=ExtResource("3_aujyh")]
+
 [node name="terrain" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.67221, 1.95358, -1.67668)
 mesh = SubResource("PlaneMesh_5vxyy")
+
+[node name="water" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)
+mesh = SubResource("PlaneMesh_yqx55")
 
 [node name="Player" type="CharacterBody3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 22.9037, 0)

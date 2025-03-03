@@ -17,8 +17,10 @@ var pitch_input = 0
 
 @onready var mesh = $rat
 @onready var terrain = $"../terrain"
+@onready var water = $"../water"
 
 func get_input(delta):
+	water.position = Vector3(position.x, terrain.position.y, position.z)
 	
 	terrain.position = Vector3(position.x, terrain.position.y, position.z)
 	if Input.is_action_pressed("throttle_up"):
